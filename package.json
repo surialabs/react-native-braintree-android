@@ -1,0 +1,19 @@
+{
+  "name": "react-native-braintree-android",
+  "version": "0.1.2",
+  "description": "A react native interface for integrating Braintree's native Drop-in Payment UI for Android",
+  "main": "index.android.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surialabs/react-native-braintree-android.git"
+  },
+  "author": "Robert Strobl <robert.strobl@surialabs.com> (https://github.com/rstrobl)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/surialabs/react-native-braintree-android/issues"
+  },
+  "homepage": "https://github.com/surialabs/react-native-braintree-android",
+  "peerDependencies": {
+    "react-native": ">=0.8.0"
+  }
+}
