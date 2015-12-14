@@ -32,6 +32,7 @@ dependencies {
 
 ```java
 // ...
+import com.surialabs.rn.braintree.BraintreePackage; // <--
 import android.content.Intent; // <--
 
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
