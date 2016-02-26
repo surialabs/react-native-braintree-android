@@ -1,6 +1,6 @@
 {
   "name": "react-native-braintree-android",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A react native interface for integrating Braintree's native Drop-in Payment UI for Android",
   "main": "index.android.js",
   "repository": {
