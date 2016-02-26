@@ -57,7 +57,7 @@ public class Braintree extends ReactContextBaseJavaModule {
         case BraintreePaymentActivity.BRAINTREE_RESULT_DEVELOPER_ERROR:
         case BraintreePaymentActivity.BRAINTREE_RESULT_SERVER_ERROR:
         case BraintreePaymentActivity.BRAINTREE_RESULT_SERVER_UNAVAILABLE:
-          this.successCallback.invoke(
+          this.errorCallback.invoke(
             data.getSerializableExtra(BraintreePaymentActivity.EXTRA_ERROR_MESSAGE)
           );
           break;
