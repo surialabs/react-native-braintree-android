@@ -28,56 +28,58 @@ dependencies {
 }
 ```
 
-4. Edit android/src/.../MainActivity.java
+4. Edit android/src/.../MainApplication.java
 
 ```java
 // ...
 import com.surialabs.rn.braintree.BraintreePackage; // <--
 import android.content.Intent; // <--
 
-public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
-    // ...
-    private BraintreePackage mBraintreePackage; // <--
+public class MainApplication extends Application implements ReactApplication {
 
+  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // ...
-        mBraintreePackage = new BraintreePackage(this); // <--
-
-        mReactInstanceManager = ReactInstanceManager.builder()
-                .setApplication(getApplication())
-                .setBundleAssetName("index.android.bundle")
-                .setJSMainModuleName("index.android")
-                .addPackage(new MainReactPackage())
-                // ...
-                .addPackage(mBraintreePackage) // <--
-                .setUseDeveloperSupport(BuildConfig.DEBUG)
-                .setInitialLifecycleState(LifecycleState.RESUMED)
-                .build();
-        // ...
+    protected boolean getUseDeveloperSupport() {
+      return BuildConfig.DEBUG;
     }
 
-    // ...
-
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        mBraintreePackage.handleActivityResult(requestCode, resultCode, data);
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(),
+					new BraintreePackage()
+      );
     }
+
+  };
+
+  @Override
+  public ReactNativeHost getReactNativeHost() {
+      return mReactNativeHost;
+  }
 }
 ```
 
 ## Usage
 
 ```js
-var Braintree = require('react-native-braintree-android');
 
-var client_token = "eyJ2YXJzbW9uIjoyLC...";
+import Braintree from 'react-native-braintree-android';
 
-Braintree.paymentRequest(client_token)
-      .then((nonce) => /* ... */)
-      .catch((error) => /* ... */)
-      .done();
+class Payment extends Component {
+  ...
+
+  componentDidMount() {
+    Braintree.setup(CLIENT_TOKEN)
+  }
+
+  _paymentInit() {
+    Braintree.showPaymentViewController().then((nonce) => {
+      // Do something with nonce
+    });
+  }
+
+  ...
+}
+
 ```
