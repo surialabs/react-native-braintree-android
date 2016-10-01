@@ -1,15 +1,24 @@
 'use strict';
 
-var Braintree = require('react-native').NativeModules.Braintree;
+import { NativeModules, processColor } from 'react-native';
+var Braintree = NativeModules.Braintree;
 
 module.exports = {
-	paymentRequest(clientToken) {
+  setup(token) {
     return new Promise(function(resolve, reject) {
-      Braintree.paymentRequest(
-        clientToken,
-        (nonce) => resolve(nonce),
-        (error) => reject(error)
-      );
-    })
-	},
+      Braintree.setup(token, (test) => resolve(test), (err) => reject(err));
+    });
+  },
+
+  getCardNonce(cardNumber, expirationMonth, expirationYear) {
+    return new Promise(function(resolve, reject) {
+      Braintree.getCardNonce(cardNumber, expirationMonth, expirationYear, (nonce) => resolve(nonce), (err) => reject(err))
+    });
+  },
+
+  showPaymentViewController() {
+    return new Promise(function(resolve, reject) {
+      Braintree.paymentRequest((nonce) => resolve(nonce), (error) => reject(error));
+    });
+  },
 };
